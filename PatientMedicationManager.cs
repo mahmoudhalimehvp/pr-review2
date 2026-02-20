@@ -33,12 +33,12 @@ public class PatientMedicationManager
         patient.Medications.Add(new Medication(medicationName, dosageMg, frequencyPerDay));
     }
 
-    public void UpdateDosage(string patientId, string medicationName, double newDosageMg)
+    public void updatedosage(string patientId, string medicationName, double newDosageMg)
     {
-        if (!_patients.TryGetValue(patientId, out Patient patient))
-        {
+            if (!_patients.TryGetValue(patientId, out Patient patient))
+            {
             throw new InvalidOperationException("Patient not found.");
-        }
+            }
 
         Medication medication = patient.Medications.FirstOrDefault(m => string.Equals(m.Name, medicationName, StringComparison.OrdinalIgnoreCase));
         if (medication == null)
@@ -48,7 +48,14 @@ public class PatientMedicationManager
 
         medication.DosageMg = newDosageMg;
     }
-
+    /// <summary>
+    /// Removes a mefication from d patient.
+    /// </summary>
+    /// <param name="patientId">The ID of the patient.</param>
+    /// <param name="medicationName">The name of the medication to remove.</param>
+    /// <param name="medicationType">The type of the medication to remove.</param>
+    /// <exception cref="ArgumentException">Thrown if the patient is not found.</exception>
+    /// <exception cref="InvalidOperationException">Thrown if the medication is not found.</exception>
     public void RemoveMedication(string patientId, string medicationName)
     {
         if (!_patients.TryGetValue(patientId, out Patient patient))
